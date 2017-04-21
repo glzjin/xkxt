@@ -5,16 +5,20 @@
 <table id="students" class="mdl-data-table" width="100%" cellspacing="0">
   <thead>
       <tr>
+          <th>操作</th>
           <th>ID</th>
           <th>学号</th>
           <th>姓名</th>
+          <th>分数</th>
       </tr>
   </thead>
   <tfoot>
       <tr>
+          <th>操作</th>
           <th>ID</th>
           <th>学号</th>
           <th>姓名</th>
+          <th>分数</th>
       </tr>
   </tfoot>
 </table>
@@ -28,9 +32,11 @@ $(document).ready(function() {
         "serverSide": true,
         "ajax": "/teacher/courses/{{$course->id}}/selected/ajax",
         columns: [
+            { data: 'op', name: 'op' },
             { data: 'id', name: 'id' },
             { data: 'username', name: 'username' },
-            { data: 'real_name', name: 'real_name' }
+            { data: 'real_name', name: 'real_name' },
+            { data: 'score', name: 'score' }
         ],
         language: {
             url: '{{ asset("assets/json/Chinese.json") }}'

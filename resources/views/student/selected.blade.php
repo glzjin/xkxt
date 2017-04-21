@@ -10,6 +10,7 @@
           <th>课程名</th>
           <th>课程描述</th>
           <th>开课人</th>
+          <th>分数</th>
       </tr>
   </thead>
   <tfoot>
@@ -19,6 +20,7 @@
           <th>课程名</th>
           <th>课程描述</th>
           <th>开课人</th>
+          <th>分数</th>
       </tr>
   </tfoot>
 </table>
@@ -37,6 +39,7 @@ $(document).ready(function() {
             { data: 'course_name', name: 'course_name' },
             { data: 'course_description', name: 'course_description' },
             { data: 'course_owner', name: 'course_owner' },
+            { data: 'score', name: 'score' },
         ],
         language: {
             url: '{{ asset("assets/json/Chinese.json") }}'

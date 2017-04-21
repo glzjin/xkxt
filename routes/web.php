@@ -32,6 +32,8 @@ Route::group(['prefix' => 'teacher'], function () {
     Route::get('courses/{id}/delete', 'Teacher\CoursesController@delete');
     Route::get('courses/{id}/selected', 'Teacher\CoursesController@select_view');
     Route::get('courses/{id}/selected/ajax', 'Teacher\CoursesController@selected_ajax');
+    Route::get('courses/{log_id}/score', 'Teacher\CoursesController@score_view');
+    Route::post('courses/{log_id}/score', 'Teacher\CoursesController@score');
 });
 
 Route::group(['prefix' => 'student'], function () {

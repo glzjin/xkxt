@@ -8,6 +8,7 @@ use Yajra\Datatables\Facades\Datatables;
 use App\Http\Controllers\TeacherController;
 use App\Models\Course;
 use App\Models\Log;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 
 class CoursesController extends TeacherController
@@ -103,9 +104,46 @@ class CoursesController extends TeacherController
                                         ->editColumn('username', function (Log $log) {
                                             return $log->user->username;
                                         })
+                                        ->addColumn('op', '
+                                        <div class="am-btn-group">
+                                         <a class="am-btn am-btn-primary am-btn-xs" href="/teacher/courses/{{$id}}/score" >登分</a>
+                                        </div>')
                                         ->rawColumns(['op'])
                                         ->make(true);
 
         return $server_side_array;
+    }
+
+    public function score_view($log_id)
+    {
+        $log = Log::where('id', $log_id)->first();
+        if($log->course->owner->id != Auth::user()->id)
+        {
+          exit(0);
+        }
+
+        $course = Course::where('id', $log->course_id)->first();
+        $user = User::where('id', $log->student_user_id)->first();
+
+        return view('teacher/course_score', ['course' => $course, 'user' => $user, 'log' => $log]);
+    }
+
+    public function score(Request $request, $log_id)
+    {
+        $data = $request->all();
+        
+        $log = Log::where('id', $log_id)->first();
+        if($log->course->owner->id != Auth::user()->id)
+        {
+          exit(0);
+        }
+
+        $log = Log::where('id', $log_id)->first();
+
+        $log->score = $data['score'];
+
+        $log->save();
+
+        return redirect('teacher/courses/'.$log->course->id.'/selected');
     }
 }
